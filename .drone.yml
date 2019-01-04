@@ -1,0 +1,13 @@
+kind: Pipeline
+name: default
+
+steps:
+  - name: publish
+    image: plugins/docker
+    pull: true
+    secrets: [ docker_username, docker_password ]
+    default_tags: true
+    repo: ${DRONE_REPO}
+    when:
+      event: [ push, tag ]
+      local: false

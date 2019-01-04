@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# assert terraform code is mounted
+if [ -z $(ls -A /mount/src) ]; then
+  echo "/mount/src is empty!"
+  echo "Please ensure you've mounted your terraform code."
+  echo
+  echo "i.e. \`$ docker run --rm -v $(pwd):/mount/src charliekenney23/docker-terraform-tflint\`"
+  sleep 1
+  exit 1
+fi
+
+# fork mount
+cp -R /mount/src/* ./
+
+rm -rf .terraform
+terraform get && tflint
