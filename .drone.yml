@@ -10,4 +10,5 @@ steps:
     repo: ${DRONE_REPO}
     when:
       event: [ push, tag ]
+      branch: [ master ]
       local: false
