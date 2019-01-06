@@ -2,13 +2,12 @@ kind: Pipeline
 name: default
 
 steps:
-  - name: publish
-    image: plugins/docker
-    pull: true
-    secrets: [ docker_username, docker_password ]
-    default_tags: true
-    repo: ${DRONE_REPO}
-    when:
-      event: [ push, tag ]
-      branch: [ master ]
-      local: false
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: charliekenney23/docker-terraform-tflint
+    autotag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
